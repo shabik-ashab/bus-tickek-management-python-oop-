@@ -71,6 +71,20 @@ class BusCounter(MyCompany):
                 print(f"Bus Number: {bus_no} \t\t Driver: {bus['driver']}")
                 print(f"Arrival: {bus['arrival']} \t\t Derparture: {bus['departure']}")
                 print(f"From: {bus['from_des']} \t\t To: {bus['to']}")
+                print()
+                a = 1
+                # show the bus seat in a table
+                # this table will have two colum and each column will have info 
+                # about 2 seats
+                for i in range(5):
+                    for j in range(2):
+                        print(f"{a}. {bus['seat'][a-1]}", end="\t")
+                        a+=1
+                    print("\t", end="")
+                    for j in range(2):
+                        print(f"{a}. {bus['seat'][a-1]}", end="\t")
+                        a+=1
+                    print()
 
 
 
