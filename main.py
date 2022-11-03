@@ -2,6 +2,9 @@
 
 #bus ticket reservation system
 
+from sys import flags
+
+
 class User:
     def __init__(self,username,password):
         self.username = username
@@ -85,6 +88,22 @@ class BusCounter(MyCompany):
                         print(f"{a}. {bus['seat'][a-1]}", end="\t")
                         a+=1
                     print()
+    def get_user(self):
+        return self.user_lst
+
+    def create_account(self):
+        name = input("Enter your name: ")
+        flag = 0
+        for user in self.get_user():
+            if user.username == name:
+                print("username already exist")
+                flag - 1
+                break
+        if flag == 0:
+            password = input("Enter your password: ")
+            self.new_user = User(name,password)
+            self.user_lst.append(vars(self.new_user))
+            print("Account created successfully")
 
 
 
