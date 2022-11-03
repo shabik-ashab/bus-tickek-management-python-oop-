@@ -4,13 +4,14 @@
 
 from lib2to3.pgen2 import driver
 from sys import flags
+from unicodedata import name
 
 
 def show_bus(bus):
     print('*'*50)
     print()
     print(f"{' '*10} {'#'*10} BUS INFO {'#'*10}")
-    print(f"Bus Number: {bus['driver']} \t\t Driver: {bus['driver']}")
+    print(f"Bus Number: {bus['coach']} \t\t Driver: {bus['driver']}")
     print(f"Arrival: {bus['arrival']} \t\t Derparture: {bus['departure']}")
     print(f"From: {bus['from_des']} \t\t To: {bus['to']}")
     print()
@@ -119,12 +120,70 @@ class BusCounter(MyCompany):
 
 
 
-company = MyCompany()
-company.install()
 
-b = BusCounter()
+while True:
+    counter = BusCounter()
+    print("1. Create an Account ")
+    print("2. Login to your Account ")
+    print("3. Exit")
+    user_input = int(input("Enter your choice: "))
+    if user_input == 3:
+        break
+    elif user_input == 1:
+        counter.create_account()
+    else:
+        name = input("Enter your name: ")
+        password = input("Enter your password: ")
+        isAdmin = False
+        flag = 0
+        if name == 'admin' and password == '123':
+            isAdmin = True
+        
+        if isAdmin == False:
+            for user in counter.get_user():
+                if user['username'] == name and user['password'] == password:
+                    flag = 1
+                    break
+            if flag:
+                while True:
+                    print(f"\n{' '*10}Welcome to BUS TICKET BOOKING SYSTEM")
+                    print("1. Available Buses\n2. Show Bus Info\n3. Reservation\n4. EXIT")
+                    a = int(input("Enter Your Choice : "))
+                    if a == 4:
+                        break
+                    elif a == 1:
+                        counter.avilable_buses()
+                    elif a == 2:
+                        counter.showBusInfo()
+                    elif a == 3:
+                        counter.reservation()
+            else:
+                print("No username found")
+        else:
+            while True:
+                print(f"\n {' '*10} HELLO ADMIN Welcome to BUS TICKET BOOKING SYSTEM\n")
+                print(
+                    "1. Install Bus\n2. Available Buses\n3. Show Bus Info\n4. EXIT")
+                a = int(input("Enter Your Choice : "))
+                if a == 4:
+                    break
+                elif a == 1:
+                    counter.install()
+                elif a == 2:
+                    counter.avilable_buses()
+                elif a == 3:
+                    counter.showBusInfo()
+
+
+# company = MyCompany()
+# company.install()
+
+# b = BusCounter()
 # b.reservation()
-b.showBusInfo()
+# b.showBusInfo()
 # b.create_account()
+# b.install()
+# b.install()
+# b.avilable_buses()
 
 
