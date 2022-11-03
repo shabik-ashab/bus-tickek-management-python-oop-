@@ -2,8 +2,31 @@
 
 #bus ticket reservation system
 
+from lib2to3.pgen2 import driver
 from sys import flags
 
+
+def show_bus(bus):
+    print('*'*50)
+    print()
+    print(f"{' '*10} {'#'*10} BUS INFO {'#'*10}")
+    print(f"Bus Number: {bus['driver']} \t\t Driver: {bus['driver']}")
+    print(f"Arrival: {bus['arrival']} \t\t Derparture: {bus['departure']}")
+    print(f"From: {bus['from_des']} \t\t To: {bus['to']}")
+    print()
+    a = 1
+    # show the bus seat in a table
+    # this table will have two colum and each column will have info 
+    # about 2 seats
+    for i in range(5):
+        for j in range(2):
+            print(f"{a}. {bus['seat'][a-1]}", end="\t")
+            a+=1
+        print("\t", end="")
+        for j in range(2):
+            print(f"{a}. {bus['seat'][a-1]}", end="\t")
+            a+=1
+        print()
 
 class User:
     def __init__(self,username,password):
@@ -68,26 +91,8 @@ class BusCounter(MyCompany):
         bus_no = int(input("Enter Bus Number: "))       
         for bus in self.total_bus_lst:
             if bus['coach'] == bus_no:
-                print('*'*50)
-                print()
-                print(f"{' '*10} {'#'*10} BUS INFO {'#'*10}")
-                print(f"Bus Number: {bus_no} \t\t Driver: {bus['driver']}")
-                print(f"Arrival: {bus['arrival']} \t\t Derparture: {bus['departure']}")
-                print(f"From: {bus['from_des']} \t\t To: {bus['to']}")
-                print()
-                a = 1
-                # show the bus seat in a table
-                # this table will have two colum and each column will have info 
-                # about 2 seats
-                for i in range(5):
-                    for j in range(2):
-                        print(f"{a}. {bus['seat'][a-1]}", end="\t")
-                        a+=1
-                    print("\t", end="")
-                    for j in range(2):
-                        print(f"{a}. {bus['seat'][a-1]}", end="\t")
-                        a+=1
-                    print()
+               show_bus(bus)
+
     def get_user(self):
         return self.user_lst
 
@@ -105,6 +110,12 @@ class BusCounter(MyCompany):
             self.user_lst.append(vars(self.new_user))
             print("Account created successfully")
 
+    def avilable_buses(self):
+        if len(self.total_bus_lst) == 0:
+            print("No bus avilable")
+        else:
+            for bus in self.total_bus_lst:
+                show_bus(bus)
 
 
 
@@ -112,7 +123,8 @@ company = MyCompany()
 company.install()
 
 b = BusCounter()
-b.reservation()
+# b.reservation()
 b.showBusInfo()
+# b.create_account()
 
 
