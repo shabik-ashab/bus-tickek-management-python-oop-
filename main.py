@@ -41,26 +41,45 @@ class MyCompany: #bus install for admin
             print("\nBus installed succesfully")
 
 
-class BusCounter(MyCompany, Bus):
+class BusCounter(MyCompany):
     user_lst = [] #user database
+    bus_seat = 20
     def reservation(self):
-        bus_no = input("Enter Bus Number: ")
+        bus_no = int(input("Enter Bus Number: "))
         for bus in self.total_bus_lst:
+            # print(bus['coach'])
             if bus_no == bus['coach']:
                 passenger = input("Enter Your Name: ")
-                seat_no = input("Enter Your Seat Number: ")
-                if seat_no >= self.bus_seat:
+                seat_no = int(input("Enter Your Seat Number: "))
+                if seat_no - 1 > self.bus_seat:
                     print(f"only {self.bus_seat} is avilable")
                 elif bus['seat'][seat_no - 1] != 'Empty':
                     print("Seat already booked")
                 else:
                     bus['seat'][seat_no - 1] = passenger
-        
+                    break
+            else:
+                print("No bus number avilable")
+                break
+    def showBusInfo(self):
+        bus_no = int(input("Enter Bus Number: "))       
+        for bus in self.total_bus_lst:
+            if bus['coach'] == bus_no:
+                print('*'*50)
+                print()
+                print(f"{' '*10} {'#'*10} BUS INFO {'#'*10}")
+                print(f"Bus Number: {bus_no} \t\t Driver: {bus['driver']}")
+                print(f"Arrival: {bus['arrival']} \t\t Derparture: {bus['departure']}")
+                print(f"From: {bus['from_des']} \t\t To: {bus['to']}")
+
 
 
 
 company = MyCompany()
 company.install()
 
+b = BusCounter()
+b.reservation()
+b.showBusInfo()
 
 
